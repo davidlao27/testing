@@ -1,0 +1,154 @@
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:title" content="davidlao's experiments - private comments" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://davidlao27.github.io/testing/" />
+<meta property="og:description" content="experiments made by davidlao(#6968). see my github for the code!" />
+<meta name="theme-color" content="#FF0000">
+<title>davidlao's experiments: priv. comments</title>
+<style>
+body {
+font-family: Arial, Helvetica, sans-serif;
+color: black;
+background-repeat: no-repeat;
+background-attachment: fixed;
+background-size: cover;
+}
+
+.avatar {
+width: 6vh;
+height: 6vh;
+background-color: white;
+padding: 2vh;
+border-radius: 2vh;
+}
+
+.codediv {
+  background-color: lightblue;
+  width:fit-content; 
+  height:fit-content;
+  border-radius: 2vh;
+  padding: 2vh
+}
+
+.quotediv {
+  background-color: lightgreen;
+  width:fit-content; 
+  height:fit-content;
+  border-radius: 2vh;
+  padding: 2vh
+}
+
+.comment-content {
+  background-color: orange;
+  width:fit-content; 
+  height:fit-content;
+  padding: 2vh;
+  border-radius: 2vh;
+  }
+
+a {
+  color: white;
+  width:fit-content; 
+  height:fit-content;
+}
+
+.ab {
+  color: white;
+}
+
+.github-comments {
+font-size: 2.5vh;
+}
+
+.titlec {
+font-size: 7vh;
+color: white;
+}
+
+.titlecd {
+font-size: 3.5vh;
+color: white;
+}
+
+.infoex {
+color: white;
+}
+</style>
+</head>
+<body bgcolor="white" background="https://wallpaperaccess.com/full/396542.jpg">
+<script>
+const GH_API_URL = 'https://api.github.com/repos/davidlao27/testing/issues/2/comments';
+
+let request = new XMLHttpRequest();
+request.open( 'GET', GH_API_URL, true );
+request.onload = function() {
+	if ( this.status >= 200 && this.status < 400 ) {
+		let response = JSON.parse( this.response );
+
+		for ( var i = 0; i < response.length; i++ ) {
+			document.getElementById( 'gh-comments-list' ).appendChild( createCommentEl( response[ i ] ) );
+		}
+
+		if ( 0 === response.length ) {
+			document.getElementById( 'no-comments-found' ).style.display = 'block';
+		}
+	} else {
+		console.error( this );
+	}
+};
+
+function createCommentEl( response ) {
+
+	var str = response.body
+	var res = str.replace("[q]", "<div class='quotediv'><b><i>Quote:</b></i><br>");
+	var resq = res.replace("[/q]", "</div>");
+	var resco = resq.replace("[c]", "<div class='codediv'>");
+	var rescoc = resco.replace("[/c]", "</div>");
+
+	let user = document.createElement( 'a' );
+	user.setAttribute( 'href', response.user.url.replace( 'api.github.com/users', 'github.com' ) );
+	user.classList.add( 'user' );
+
+	let userAvatar = document.createElement( 'img' );
+	userAvatar.classList.add( 'avatar' );
+	userAvatar.setAttribute( 'src', response.user.avatar_url );
+
+	user.appendChild( userAvatar );
+
+	let commentLink = document.createElement( 'a' );
+	commentLink.setAttribute( 'href', response.html_url );
+	commentLink.classList.add( 'comment-url' );
+	commentLink.innerHTML = "<b>" + '<font size="2">see comment</font>' + "</b><br><br>";
+
+	let commentContents = document.createElement( 'div' );
+	commentContents.classList.add( 'comment-content' );
+	commentContents.innerHTML = rescoc;
+
+	let comment = document.createElement( 'ul' );
+	comment.setAttribute( 'data-created', response.created_at );
+	comment.setAttribute( 'data-author-avatar', response.user.avatar_url );
+	comment.setAttribute( 'data-user-url', response.user.url );
+
+	comment.appendChild( user );
+	comment.appendChild( commentContents );
+	comment.appendChild( commentLink );
+
+	return comment;
+}
+request.send();
+</script>
+<br>
+<p align="center"><font class="titlec"><b>Public Comments</b></font></p>
+<p align="center"><font class="titlecd"><b>Chat with people on GitHub!</b></font></p>
+<div class="github-comments">
+	<ul id="gh-comments-list"></ul>
+	<br>
+	<hr>
+	<br>
+	<p id="no-comments-found" class="infoex">No (more) comments found. Are you sure there are (more) comments?</p>
+	<p id="leave-a-comment" class="infoex"></a>Write a comment <b><a href="https://github.com/davidlao27/testing/issues/2">on this issue here!</a></b> Comments should appear on this page instantly. If not, <a class="ab" href="">reload the page</a> [GitHub API might be on heavy traffic]</p>
+</div>
+</body>
+</html>

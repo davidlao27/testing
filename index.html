@@ -1,22 +1,34 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta property="og:title" content="davidlao's experiments" />
+<meta property="og:title" content="davidlao's experiments - private comments" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://davidlao27.github.io/testing/" />
 <meta property="og:description" content="experiments made by davidlao(#6968). see my github for the code!" />
 <meta name="theme-color" content="#FF0000">
-<title>davidlao's experiments: comments</title>
+<title>davidlao's experiments: priv. comments</title>
 <style>
+body {
+font-family: Arial, Helvetica, sans-serif;
+color: black;
+background-repeat: no-repeat;
+background-attachment: fixed;
+background-size: cover;
+}
+
 .avatar {
 width: 6vh;
 height: 6vh;
+background-color: white;
+padding: 2vh;
+border-radius: 2vh;
 }
 
 .codediv {
   background-color: lightblue;
   width:fit-content; 
   height:fit-content;
+  border-radius: 2vh;
   padding: 2vh
 }
 
@@ -24,11 +36,48 @@ height: 6vh;
   background-color: lightgreen;
   width:fit-content; 
   height:fit-content;
+  border-radius: 2vh;
   padding: 2vh
+}
+
+.comment-content {
+  background-color: orange;
+  width:fit-content; 
+  height:fit-content;
+  padding: 2vh;
+  border-radius: 2vh;
+  }
+
+a {
+  color: white;
+  width:fit-content; 
+  height:fit-content;
+}
+
+.ab {
+  color: white;
+}
+
+.github-comments {
+font-size: 2.5vh;
+}
+
+.titlec {
+font-size: 7vh;
+color: white;
+}
+
+.titlecd {
+font-size: 3.5vh;
+color: white;
+}
+
+.infoex {
+color: white;
 }
 </style>
 </head>
-<body>
+<body bgcolor="white" background="https://wallpaperaccess.com/full/396542.jpg">
 <script>
 const GH_API_URL = 'https://api.github.com/repos/davidlao27/testing/issues/1/comments';
 
@@ -71,7 +120,7 @@ function createCommentEl( response ) {
 	let commentLink = document.createElement( 'a' );
 	commentLink.setAttribute( 'href', response.html_url );
 	commentLink.classList.add( 'comment-url' );
-	commentLink.innerHTML = 'see this comment here';
+	commentLink.innerHTML = "<b>" + '<font size="2">see comment</font>' + "</b><br><br>";
 
 	let commentContents = document.createElement( 'div' );
 	commentContents.classList.add( 'comment-content' );
@@ -90,16 +139,16 @@ function createCommentEl( response ) {
 }
 request.send();
 </script>
-<font size="4">Comment testing via GitHub issues API:</font>
-
+<br>
+<p align="center"><font class="titlec"><b>Private Comment Example</b></font></p>
+<p align="center"><font class="titlecd"><b>made by davidlao:</b></font></p>
 <div class="github-comments">
-	<h2>Comments on issue #1:</h2>
 	<ul id="gh-comments-list"></ul>
 	<br>
 	<hr>
 	<br>
-	<p id="no-comments-found">No (more) comments found. Are you sure there are (more) comments?</p>
-	<p id="leave-a-comment">No more comments are allowed here.</a> Comments should appear on this page instantly. If not, <a href="">reload the page</a> as GitHub might be on heavy traffic!</p>
+	<p id="no-comments-found" class="infoex">No (more) comments found. Are you sure there are (more) comments?</p>
+	<p id="leave-a-comment" class="infoex"></a> Comments should appear on this page instantly. If not, <a class="ab" href="">reload the page</a> [GitHub API might be on heavy traffic]</p>
 </div>
 </body>
 </html>
